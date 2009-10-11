@@ -1,21 +1,28 @@
 BIN = quax
-SRCS= main.c
-OBJS= $(SRCS:.c=.o)
+SRCS= main.cpp quax.cpp
+OBJS= $(SRCS:.cpp=.o)
 
-CC= gcc
+CC= g++
 CCFLAGS= -g -Wall -Iinclude -O0 -pipe
-LD= gcc
+LD= g++
 LDFLAGS= -g $(LIBS)
 
 all: $(BIN)
 
-.c.o:
+%.o: %.cpp
 	$(CC) $(CCFLAGS) $(LIBS) -o $@ -c $<
 
 $(BIN): $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS)
 
+dist:
+	-rm cppbot.tar.bz2
+	(cd ..; tar cjf cppbot.tar.bz2 cppbot; mv cppbot.tar.bz2 cppbot/)
+
 clean:
 	-rm -f *.o $(BIN)
 
-.PHONY: all clean
+dist-clean: clean
+	-rm cppbot.tar.bz2
+
+.PHONY: all dist clean
