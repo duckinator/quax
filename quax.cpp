@@ -58,11 +58,25 @@ void Quax::box(unsigned int x, unsigned int y, unsigned int width, unsigned int 
 	printf("\033(B");
 }
 
-void Quax::new_window(unsigned int x, unsigned int y, unsigned int width, unsigned int height, char *text)
+void Quax::draw_window(Window *window)
 {
-	box(x, y, width, height);
-	cursor_set(x+1, y+1);
-	printf("%s", text);
+	box(window->left, window->top, window->width, window->height);
+	cursor_set(window->left+1, window->top+1);
+	printf("%s", window->content);
  
-	hline(x+2, y, width);
-} 
+	hline(window->left+2, window->top, window->width);
+}
+
+Window *Quax::new_window(unsigned int x, unsigned int y, unsigned int width, unsigned int height, char *text)
+{
+	Window *window = new Window;
+	window->width = width;
+	window->height = height;
+	window->left = x;
+	window->top = y;
+	//window->text = malloc(strlen(text));
+	window->content = new char[strlen(text)];
+	strcpy(window->content, text);
+
+	return window;
+}
