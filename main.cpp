@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	win1 = quax.new_window(10, 10, 10, 10, (char*)"meep");
 	quax.draw_window(win1);
 	/*win1->top = 0;
-	quax.reset_term();
+	quax.clear_term();
 	quax.draw_window(win1);*/
 
 	quax.cursor_set(50, 0); 
